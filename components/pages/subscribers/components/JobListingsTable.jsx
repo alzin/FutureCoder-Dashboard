@@ -64,9 +64,9 @@ const JobListingsTable = () => {
                   <td>
                     <div className="option-box">
                       <ul className="option-list">
-                        <li>
+                        {/* <li>
                           <EditModal id={item.id} email={item.email} />
-                        </li>
+                        </li> */}
                         <li>
                           <DeleteModal id={item.id} />
                           {/*  */}

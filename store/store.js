@@ -8,7 +8,8 @@ import coursesTimesSlice from "@/states/coursesTimes/coursesTimesSlice";
 import guestUsersSlice from "@/states/guestUsers/guestUsersSlice";
 import bookingsSlice from "@/states/bookings/bookingsSlice";
 import authSlice from "@/states/auth/authSlice";
-
+import testimonialsSlice from "@/states/testimonials/testimonialsSlice";
+import usersSlice from "@/states/users/usersSlice";
 
 export const store = configureStore({
   reducer: {
@@ -20,7 +21,8 @@ export const store = configureStore({
     guestUsers: guestUsersSlice,
     bookings: bookingsSlice,
     auth: authSlice,
-
+    testimonials: testimonialsSlice,
+    users: usersSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(),
 });

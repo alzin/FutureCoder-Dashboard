@@ -27,9 +27,9 @@ const WidgetContentBox = () => {
 
             <TabList className="aplicantion-status tab-buttons clearfix w-100">
               <Tab className="tab-btn totals ms-0"> Total(s): {totalCount}</Tab>
-              <Link href={"/guest-users/create"} className="theme-btn btn-style-one ms-auto">
+              {/* <Link href={"/guest-users/create"} className="theme-btn btn-style-one ms-auto">
                 Create New Guest Users
-              </Link>
+              </Link> */}
             </TabList>
           </div>
 
@@ -61,7 +61,7 @@ const WidgetContentBox = () => {
                               {item.age}
                             </li>
 
-                            <li className={`ps-0 ${item.email_verified ? "text-success":"text-danger"}`}>
+                            <li className={`ps-0 ${item.email_verified ? "text-success" : "text-danger"}`}>
                               <span>Email :</span>
                               {item.email}
                             </li>
@@ -71,13 +71,13 @@ const WidgetContentBox = () => {
 
                         <div className="option-box">
                           <ul className="option-list">
-                            <li>
+                            {/* <li>
                               <button data-text="Edit Course">
                                 <Link data-text="Edit Course" href={`/guest-users/edit/${item.id}`}>
                                   <span className="la la-pencil"></span>
                                 </Link >
                               </button>
-                            </li>
+                            </li> */}
                             <li>
                               <DeleteModal id={item.id} />
                             </li>

@@ -1,15 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Api, token } from "../Api";
 
-
 const headers = {
   "Content-Type": "application/json",
-  "Accept": "application/json",
-  "Authorization": `Bearer 1|${token}`
+  Accept: "application/json",
+  Authorization: `Bearer 1|${token}`,
   // 'Content-Type': 'multipart/form-data'
 };
-
-
 
 // get all coursesTimes
 export const getCoursesTimes = createAsyncThunk(
@@ -60,14 +57,17 @@ export const getCourseDatesByCourseId = createAsyncThunk(
   "coursesTimes/getCourseDatesByCourseId",
   async ({ courseId }, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${Api}/courses_time/courseDays/${courseId}`, {
-        method: "GET",
-        headers,
-      });
+      const response = await fetch(
+        `${Api}/courses_time/courseDays/${courseId}`,
+        {
+          method: "GET",
+          headers,
+        }
+      );
       const data = await response.json();
 
       if (response.ok) {
-        console.log(data)
+        console.log(data);
         return data;
       } else {
         return rejectWithValue(data.message);
@@ -83,10 +83,13 @@ export const getCourseTimesByDate = createAsyncThunk(
   "coursesTimes/getCourseTimesByDate",
   async ({ courseId, date }, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${Api}/courses_time/availableTimes/${courseId}/${date}`, {
-        method: "GET",
-        headers,
-      });
+      const response = await fetch(
+        `${Api}/courses_time/availableTimes/${courseId}/${date}`,
+        {
+          method: "GET",
+          headers,
+        }
+      );
       const data = await response.json();
 
       if (response.ok) {
@@ -103,10 +106,7 @@ export const getCourseTimesByDate = createAsyncThunk(
 // add CoursesTimes
 export const addCoursesTimes = createAsyncThunk(
   "coursesTimes/addCoursesTimes",
-  async (
-    { coursesTimesData },
-    { rejectWithValue }
-  ) => {
+  async ({ coursesTimesData }, { rejectWithValue }) => {
     try {
       const response = await fetch(`${Api}/courses_time`, {
         method: "POST",
@@ -130,15 +130,12 @@ export const addCoursesTimes = createAsyncThunk(
 export const updateCoursesTimes = createAsyncThunk(
   "coursesTimes/updateCoursesTimes",
   async ({ newCoursesTimesData, coursesTimesId }, { rejectWithValue }) => {
-
     newCoursesTimesData.append("_method", "put");
 
     try {
       const response = await fetch(`${Api}/courses_time/${coursesTimesId}`, {
         method: "POST",
-        headers: {
-
-        },
+        headers: {},
         body: JSON.stringify(newCoursesTimesData),
       });
       const data = await response.json();
@@ -158,7 +155,6 @@ export const updateCoursesTimes = createAsyncThunk(
 export const deleteCoursesTimes = createAsyncThunk(
   "coursesTimes/deleteCoursesTimes",
   async ({ coursesTimesId }, { rejectWithValue }) => {
-
     try {
       const response = await fetch(`${Api}/courses_time?id=${coursesTimesId}`, {
         method: "DELETE",

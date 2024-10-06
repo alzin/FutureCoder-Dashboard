@@ -11,11 +11,12 @@ const headers = {
 // get all coursesTimes
 export const getCoursesTimes = createAsyncThunk(
   "coursesTimes/getCoursesTimes",
-  async ({ currentPage }, { rejectWithValue }) => {
+  async ({ currentPage, timezone }, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${Api}/courses_time?page=${currentPage}`, {
-        method: "GET",
+      const response = await fetch(`${Api}/courses_time/getAlltimes?page=${currentPage}`, {
+        method: "POST",
         headers,
+        body: JSON.stringify({ timezone }),
       });
       const data = await response.json();
 
@@ -106,12 +107,12 @@ export const getCourseTimesByDate = createAsyncThunk(
 // add CoursesTimes
 export const addCoursesTimes = createAsyncThunk(
   "coursesTimes/addCoursesTimes",
-  async ({ coursesTimesData }, { rejectWithValue }) => {
+  async ({ courseTimeData }, { rejectWithValue }) => {
     try {
       const response = await fetch(`${Api}/courses_time`, {
         method: "POST",
         headers,
-        body: JSON.stringify(coursesTimesData),
+        body: JSON.stringify(courseTimeData),
       });
       const data = await response.json();
 

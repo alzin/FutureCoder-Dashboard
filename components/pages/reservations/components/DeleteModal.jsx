@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage } from '@/states/bookings/bookingsSlice'; 
-import { deleteBooking,getBookings } from '@/states/bookings/handleRequests';
+import { setCurrentPage } from '@/states/bookings/bookingsSlice';
+import { deleteBooking, getBookings } from '@/states/bookings/handleRequests';
+import { getTimeZone } from "@/utils/algorithms";
 
 const DeleteModal = ({ id }) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const dispatch = useDispatch()
+    const timezone = getTimeZone()
     const { loading, currentPage, bookings } = useSelector((state) => state.bookings);
 
     const handleDelete = () => {
@@ -18,11 +20,11 @@ const DeleteModal = ({ id }) => {
                 handleClose();
                 if (bookings.length === 1 && currentPage > 1) {
                     dispatch(setCurrentPage(currentPage - 1))
-                    dispatch(getBookings({ currentPage: currentPage - 1 }))
+                    dispatch(getBookings({ currentPage: currentPage - 1, timezone }))
                 }
 
                 else {
-                    dispatch(getBookings({ currentPage }))
+                    dispatch(getBookings({ currentPage, timezone }))
                 }
             },
             (error) => {

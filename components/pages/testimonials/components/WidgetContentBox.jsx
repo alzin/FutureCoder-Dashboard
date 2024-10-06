@@ -93,13 +93,13 @@ const WidgetContentBox = () => {
                                   <span className="la la-check"></span>}
                               </button>
                             </li>
-                            <li>
+                            {/* <li>
                               <button data-text="Edit Course">
                                 <Link data-text="Edit Course" href={`/testimonials/edit/${item.id}`}>
                                   <span className="la la-pencil"></span>
                                 </Link >
                               </button>
-                            </li>
+                            </li> */}
                             <li>
                               <DeleteModal id={item.id} />
                             </li>

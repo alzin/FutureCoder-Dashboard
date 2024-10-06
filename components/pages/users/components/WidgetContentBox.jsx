@@ -27,9 +27,9 @@ const WidgetContentBox = () => {
 
             <TabList className="aplicantion-status tab-buttons clearfix w-100">
               <Tab className="tab-btn totals ms-0"> Total(s): {totalCount}</Tab>
-              {/* <Link href={"/users/create"} className="theme-btn btn-style-one ms-auto">
+              <Link href={"/users/create"} className="theme-btn btn-style-one ms-auto">
                 Create New User
-              </Link> */}
+              </Link>
             </TabList>
           </div>
 
@@ -41,6 +41,7 @@ const WidgetContentBox = () => {
                     <div
                       className="candidate-block-three col-lg-4 col-md-6 col-sm-12"
                       key={item.id}
+                      title={`userId = ${item.id}`}
                     >
                       <div className="inner-box flex-column	">
                         <div className="content ps-0">
@@ -50,7 +51,7 @@ const WidgetContentBox = () => {
                               {item.firstName} {item.lastName}
                             </li>
 
-                            <li className="ps-0 w-100">
+                            <li className={`ps-0 w-100 ${item.email_verified_at ? "text-success" : "text-danger"}`}>
                               <span>Email : </span>
                               {item.email}
                             </li>
@@ -65,23 +66,19 @@ const WidgetContentBox = () => {
                               {item.created_at.split('T')[0]}
                             </li>
 
-                            {/* <li className={`ps-0 ${item.is_visible ? "text-success" : "text-danger"}`}>
-                              {item.is_visible ? <span>Visible</span> : <span>unVisible</span>}
-                            </li> */}
-
                           </ul>
                         </div>
                         {/* End content */}
 
                         <div className="option-box">
                           <ul className="option-list">
-                            <li>
+                            {/* <li>
                               <button data-text="Edit User">
                                 <Link data-text="Edit User" href={`/users/edit/${item.id}`}>
                                   <span className="la la-pencil"></span>
                                 </Link >
                               </button>
-                            </li>
+                            </li> */}
                             <li>
                               <DeleteModal id={item.id} />
                             </li>

@@ -37,13 +37,29 @@ export const coursesTimesSlice = createSlice({
         state.totalCount = 0;
       })
       .addCase(getCoursesTimes.fulfilled, (state, { payload }) => {
-        state.coursesTimes = payload;
-        state.totalCount = payload;
+        state.coursesTimes = payload.data.sort((a, b) => {
+          const dateA = new Date(a.SessionTimings);
+          const dateB = new Date(b.SessionTimings);
+
+          if (dateA.getTime() !== dateB.getTime()) {
+            return dateA.getTime() - dateB.getTime(); // Sort by date
+          }
+
+          const timeA = new Date(`${dateA.getFullYear()}-${padZero(dateA.getMonth() + 1)}-${padZero(dateA.getDate())}T${a.startTime}`);
+          const timeB = new Date(`${dateB.getFullYear()}-${padZero(dateB.getMonth() + 1)}-${padZero(dateB.getDate())}T${b.startTime}`);
+
+          return timeA.getTime() - timeB.getTime(); // Sort by time within the same day
+        });
+        state.totalCount = payload.total;
         // toast.success("Succsessfull getCoursesTimes");
       })
       .addCase(getCoursesTimes.rejected, (state, { payload }) => {
         toast.error(payload);
       });
+
+    function padZero(num) {
+      return num.toString().padStart(2, '0');
+    }
 
     // getCoursesTimesById
     builder

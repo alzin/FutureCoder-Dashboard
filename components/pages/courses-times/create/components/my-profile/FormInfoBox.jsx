@@ -5,167 +5,98 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { unwrapResult } from '@reduxjs/toolkit';
 
-import { addCourse } from '@/states/courses/handleRequests';
+import { addCoursesTimes } from '@/states/coursesTimes/handleRequests';
 
 const FormInfoBox = () => {
     const dispatch = useDispatch();
     const router = useRouter();
-    const { loading } = useSelector((state) => state.courses);
-    const [courseData, setCourseData] = useState({
-        title: "",
-        description: "",
-        teacher: "",
-        price: "",
-        course_outline: "",
-        duration_in_session: "",
-        course_start_date: "",
-        min_age: "",
-        max_age: "",
-        imagePath: "https://i.postimg.cc/jjfjwTWs/image.png",
+    const { loading } = useSelector((state) => state.coursesTimes);
+    const [courseTimeData, setCourseTimeData] = useState({
+        courseId: "",
+        SessionTimings: "",
+        startTime: "",
+        endTime: "",
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     });
 
+    function getCurrentTime() {
+        const currentTime = new Date();
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const hours = String(currentTime.getHours()).padStart(2, '0');
+        const minutes = String(currentTime.getMinutes()).padStart(2, '0');
+        return {
+            time: `${hours}:${minutes}`,
+            date: `${year}-${month}-${day}`
+        };
+    }
+
     const handleChange = (e) => {
-        setCourseData({ ...courseData, [e.target.name]: e.target.value });
+        setCourseTimeData({ ...courseTimeData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const courseTimeDataClone = { ...courseTimeData, startTime: courseTimeData.startTime + ":00", endTime: courseTimeData.endTime + ":00" }
 
         try {
-            const resultAction = await dispatch(addCourse({ courseData }));
+            const resultAction = await dispatch(addCoursesTimes({ courseTimeData: courseTimeDataClone }));
             unwrapResult(resultAction); // This will throw an error if the action was rejected
-            router.push("/courses");
+            router.push("/courses-times");
         } catch (error) {
-            console.error('Create Course failed', error);
+            console.error('Create Course Time failed', error);
         }
     }
 
     return (
         <form className="default-form" onSubmit={handleSubmit}>
             <div className="row">
-                <div className="form-group col-lg-12 col-md-12">
-                    <label>Course Title</label>
-                    <input
-                        type="text"
-                        name="title"
-                        placeholder="Enter Title of Course"
-                        value={courseData.title}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-
-                <div className="form-group col-lg-12 col-md-12">
-                    <label>Course Description</label>
-                    <textarea
-                        type="text"
-                        name="description"
-                        placeholder="Enter description of Course"
-                        value={courseData.description}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-
                 <div className="form-group col-lg-6 col-md-12">
-                    <label>Course Teacher</label>
-                    <input
-                        type="text"
-                        name="teacher"
-                        placeholder="Enter Teacher of Course"
-                        value={courseData.teacher}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-
-                <div className="form-group col-lg-6 col-md-12">
-                    <label>Course Price</label>
+                    <label>Course Id</label>
                     <input
                         type="number"
-                        name="price"
-                        min={0}
-                        placeholder="Enter Price of Course"
-                        value={courseData.price}
+                        name="courseId"
+                        placeholder="Enter Id of Course"
+                        value={courseTimeData.courseId}
                         onChange={handleChange}
                         required
                     />
                 </div>
 
                 <div className="form-group col-lg-6 col-md-12">
-                    <label>Course Outline</label>
-                    <input
-                        type="text"
-                        name="course_outline"
-                        placeholder="Enter Course Outline of Course"
-                        value={courseData.course_outline}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-
-                <div className="form-group col-lg-6 col-md-12">
-                    <label>Course Sessions</label>
-                    <input
-                        type="number"
-                        min={0}
-                        name="duration_in_session"
-                        placeholder="Enter Number of Sessions in Course"
-                        value={courseData.duration_in_session}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-
-                <div className="form-group col-lg-6 col-md-12">
-                    <label>Course Started Date</label>
+                    <label>Course Date</label>
                     <input
                         type="date"
-                        // pattern="\d{4}-\d{2}-\d{2}"
-                        data-date=""
-                        data-date-format="YYYY-MM-DD"
-                        min={new Date().toISOString().split('T')[0]}
-                        name="course_start_date"
-                        placeholder="Enter Course Start Date of Course"
-                        value={courseData.course_start_date}
-                        onChange={handleChange}
-                        required
-                    />
-
-                </div>
-                <div className="form-group col-lg-6 col-md-12">
-                    <label>Course Min Age</label>
-                    <input
-                        type="number"
-                        name="min_age"
-                        min={0}
-                        placeholder="Enter Minimum  Age For Course"
-                        value={courseData.min_age}
+                        min={getCurrentTime().date}
+                        name="SessionTimings"
+                        placeholder="yyyy-mm-dd"
+                        value={courseTimeData.SessionTimings}
                         onChange={handleChange}
                         required
                     />
                 </div>
 
                 <div className="form-group col-lg-6 col-md-12">
-                    <label>Course Maximum age</label>
+                    <label>Course Start Time</label>
                     <input
-                        type="number"
-                        name="max_age"
-                        min={Number(courseData.min_age) + 1}
-                        placeholder="Enter Maximum Age for Course"
-                        value={courseData.max_age}
+                        type="time"
+                        name="startTime"
+                        placeholder="Enter startTime of Course"
+                        value={courseTimeData.startTime}
                         onChange={handleChange}
                         required
                     />
                 </div>
 
                 <div className="form-group col-lg-6 col-md-12">
-                    <label>Image path</label>
+                    <label>Course End Time</label>
                     <input
-                        type="text"
-                        name="imagePath"
-                        placeholder="Enter Image Path of Blog"
-                        value={courseData.imagePath}
+                        type="time"
+                        name="endTime"
+                        placeholder="Enter endTime of Course"
+                        value={courseTimeData.endTime}
                         onChange={handleChange}
                         required
                     />

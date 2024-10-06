@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import DeleteModal from "./DeleteModal";
 import { useEffect } from "react";
 import { getBookings } from "@/states/bookings/handleRequests";
+import { getTimeZone } from "@/utils/algorithms";
 
 const WidgetContentBox = () => {
 
@@ -15,21 +16,27 @@ const WidgetContentBox = () => {
   const { bookings, totalCount, currentPage } = useSelector(state => state.bookings)
 
   useEffect(() => {
-    dispatch(getBookings({ currentPage }));
+    const timezone = getTimeZone()
+    dispatch(getBookings({ currentPage, timezone }));
   }, [])
+
+  const isOldDate = (timeString, dateString) => {
+    const currentDate = new Date();
+    const timeToCompare = new Date(`${dateString}T${timeString}`);
+    return timeToCompare < currentDate;
+  };
 
   return (
     <div className="widget-content">
       <div className="tabs-box">
         <Tabs>
           <div className="aplicants-upper-bar">
-            {/* <h6>Senior Product Designer</h6> */}
 
             <TabList className="aplicantion-status tab-buttons clearfix w-100">
               <Tab className="tab-btn totals ms-0"> Total(s): {totalCount}</Tab>
-              <Link href={"/reservations/create"} className="theme-btn btn-style-one ms-auto">
+              {/* <Link href={"/reservations/create"} className="theme-btn btn-style-one ms-auto">
                 Create New Reservations
-              </Link>
+              </Link> */}
             </TabList>
           </div>
 
@@ -66,12 +73,12 @@ const WidgetContentBox = () => {
                               {item.userEmail}
                             </li>
 
-                            <li className="ps-0">
+                            <li className={`ps-0 ${isOldDate(item.lessoStartTime, item.lessonDate) ? "text-danger" : ""}`}>
                               <span>Date :</span>
                               {item.lessonDate}
                             </li>
 
-                            <li className="ps-0">
+                            <li className={`ps-0 ${isOldDate(item.lessoStartTime, item.lessonDate) ? "text-danger" : ""}`}>
                               <span>Time :</span>
                               {item.lessoStartTime} - {item.lessoEndTime}
                             </li>
@@ -88,15 +95,15 @@ const WidgetContentBox = () => {
 
                         <div className="option-box">
                           <ul className="option-list">
-                            <li>
+                            {/* <li>
                               <button data-text="Edit Reservation">
                                 <Link data-text="Edit Reservation" href={`/reservations/edit/${item.id}`}>
                                   <span className="la la-pencil"></span>
                                 </Link >
                               </button>
-                            </li>
+                            </li> */}
                             <li>
-                              <DeleteModal id={item.id} />
+                              <DeleteModal id={item.freeLessonId} />
                             </li>
                           </ul>
                         </div>

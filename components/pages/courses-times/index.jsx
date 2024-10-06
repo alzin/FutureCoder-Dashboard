@@ -7,6 +7,11 @@ import MenuToggler from "@/components/MenuToggler";
 import WidgetContentBox from "./components/WidgetContentBox";
 
 const index = () => {
+
+  const getTimeZone = () => {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+  };
+
   return (
     <div className="page-wrapper dashboard">
       <span className="header-span"></span>
@@ -25,6 +30,7 @@ const index = () => {
         <div className="dashboard-outer">
           <BreadCrumb title="All Courses Times!" />
           {/* breadCrumb */}
+          <p>{getTimeZone()}</p>
 
           <MenuToggler />
           {/* Collapsible sidebar button */}

@@ -1,17 +1,17 @@
 "use client"
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrentPage } from "@/states/testimonials/testimonialsSlice";
-import { getTestimonials } from "@/states/testimonials/handleRequests";
+import { setCurrentPage } from "@/states/users/usersSlice";
+import { getUsers } from "@/states/users/handleRequests";
 
 const Pagination = () => {
 
   const dispatch = useDispatch()
-  const { totalCount, currentPage } = useSelector(state => state.testimonials)
+  const { totalCount, currentPage } = useSelector(state => state.users)
   const totalPages = Math.ceil(totalCount / 6)
 
   const handleChangePage = (currentPage) => {
     dispatch(setCurrentPage(currentPage))
-    dispatch(getTestimonials({ currentPage }))
+    dispatch(getUsers({ currentPage }))
   }
 
   const renderPaginationItems = () => {

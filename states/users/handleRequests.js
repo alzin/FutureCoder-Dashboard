@@ -13,7 +13,7 @@ export const getUsers = createAsyncThunk(
   "users/getUsers",
   async ({ currentPage }, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${Api}/user/?page=${currentPage}`, {
+      const response = await fetch(`${Api}/users/?page=${currentPage}`, {
         method: "GET",
         headers,
       });
@@ -38,6 +38,32 @@ export const getUserById = createAsyncThunk(
       const response = await fetch(`${Api}/user?id=${userId}`, {
         method: "GET",
         headers,
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        return data;
+      } else {
+        return rejectWithValue(data.message);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+//  add user
+export const addUser = createAsyncThunk(
+  "users/addUser",
+  async ({ userData }, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`${Api}/register1`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(userData),
       });
       const data = await response.json();
 
@@ -81,10 +107,9 @@ export const deleteUser = createAsyncThunk(
   "users/deleteUser",
   async ({ userId }, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${Api}/user`, {
+      const response = await fetch(`${Api}/users/${userId}`, {
         method: "DELETE",
         headers,
-        body: JSON.stringify({ id: userId }),
       });
       const data = await response.json();
 

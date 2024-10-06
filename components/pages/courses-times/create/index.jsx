@@ -10,7 +10,7 @@ const index = () => {
     return (
         <div className="page-wrapper dashboard">
             <span className="header-span"></span>
-          
+
             <DashboardHeader />
             {/* End Header */}
 
@@ -23,7 +23,7 @@ const index = () => {
             {/* <!-- Dashboard --> */}
             <section className="user-dashboard">
                 <div className="dashboard-outer">
-                    <BreadCrumb title="Create Reservation" />
+                    <BreadCrumb title="Create Course Time" />
                     {/* breadCrumb */}
 
                     <MenuToggler />
@@ -35,10 +35,10 @@ const index = () => {
                                 <div className="tabs-box">
                                     <div className="widget-title">
                                     </div>
-                                    <MyProfile/>
+                                    <MyProfile />
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                     {/* End .row */}

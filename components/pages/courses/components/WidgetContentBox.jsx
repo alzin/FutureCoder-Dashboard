@@ -28,8 +28,8 @@ const WidgetContentBox = () => {
             <TabList className="aplicantion-status tab-buttons clearfix w-100">
               <Tab className="tab-btn totals ms-0"> Total(s): {totalCount}</Tab>
               <Link href={"/courses/create"} className="theme-btn btn-style-one ms-auto">
-                  Create New Course
-                </Link>
+                Create New Course
+              </Link>
             </TabList>
           </div>
 
@@ -41,6 +41,7 @@ const WidgetContentBox = () => {
                     <div
                       className="candidate-block-three col-lg-6 col-md-12 col-sm-12"
                       key={item.id}
+                      title={`courseId : ${item.id}`}
                     >
                       <div className="inner-box">
                         <div className="content">

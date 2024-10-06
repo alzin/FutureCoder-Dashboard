@@ -4,6 +4,7 @@ import {
   updateUser,
   deleteUser,
   getUserById,
+  addUser
 } from "./handleRequests";
 import { toast } from "react-toastify";
 
@@ -55,6 +56,20 @@ export const usersSlice = createSlice({
         // toast.success("Succsessfull getUserById");
       })
       .addCase(getUserById.rejected, (state, { payload }) => {
+        state.loading = false;
+        toast.error(payload);
+      });
+
+    // addUser
+    builder
+      .addCase(addUser.pending, (state, { payload }) => {
+        state.loading = true;
+      })
+      .addCase(addUser.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        toast.success("Succsessfull addUser");
+      })
+      .addCase(addUser.rejected, (state, { payload }) => {
         state.loading = false;
         toast.error(payload);
       });

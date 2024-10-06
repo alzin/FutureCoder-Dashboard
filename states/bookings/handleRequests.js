@@ -11,11 +11,12 @@ const headers = {
 // get all bookings
 export const getBookings = createAsyncThunk(
   "bookings/getBookings",
-  async ({ currentPage }, { rejectWithValue }) => {
+  async ({ currentPage, timezone }, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${Api}/free_lessons?page=${currentPage}`, {
-        method: "GET",
+      const response = await fetch(`${Api}/free_lessons/getFreeLesson?page=${currentPage}`, {
+        method: "POST",
         headers,
+        body: JSON.stringify({ timezone }),
       });
       const data = await response.json();
 

@@ -23,7 +23,7 @@ const index = () => {
             {/* <!-- Dashboard --> */}
             <section className="user-dashboard">
                 <div className="dashboard-outer">
-                    <BreadCrumb title="Create Testimonial" />
+                    <BreadCrumb title="Create User" />
                     {/* breadCrumb */}
 
                     <MenuToggler />

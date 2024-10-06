@@ -7,15 +7,27 @@ import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
 import DeleteModal from "./DeleteModal";
 import { useEffect } from "react";
-import { getCourses } from "@/states/courses/handleRequests";
+import { getCoursesTimes } from "@/states/coursesTimes/handleRequests";
 
 const WidgetContentBox = () => {
 
   const dispatch = useDispatch();
-  const { courses, totalCount, currentPage } = useSelector(state => state.courses)
+  const { coursesTimes, totalCount, currentPage } = useSelector(state => state.coursesTimes)
+
+  const isOldDate = (timeString, dateString) => {
+    const currentDate = new Date();
+    const timeToCompare = new Date(`${dateString}T${timeString}`);
+    return timeToCompare < currentDate;
+  };
 
   useEffect(() => {
-    dispatch(getCourses({ currentPage }));
+    const getTimeZone = () => {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    };
+
+    const timezone = getTimeZone();
+
+    dispatch(getCoursesTimes({ currentPage, timezone }));
   }, [])
 
   return (
@@ -27,8 +39,8 @@ const WidgetContentBox = () => {
 
             <TabList className="aplicantion-status tab-buttons clearfix w-100">
               <Tab className="tab-btn totals ms-0"> Total(s): {totalCount}</Tab>
-              <Link href={"/courses/create"} className="theme-btn btn-style-one ms-auto">
-                Create New Course
+              <Link href={"/courses-times/create"} className="theme-btn btn-style-one ms-auto">
+                Create New Course Time
               </Link>
             </TabList>
           </div>
@@ -36,63 +48,53 @@ const WidgetContentBox = () => {
           <div className="tabs-content">
             <TabPanel>
               <div className="row pb-3">
-                {courses && courses.length > 0 ?
-                  courses.map((item) => (
+                {coursesTimes && coursesTimes.length > 0 ?
+                  coursesTimes.map((item) => (
                     <div
-                      className="candidate-block-three col-lg-6 col-md-12 col-sm-12"
+                      className="candidate-block-three col-lg-4 col-md-12 col-sm-12"
                       key={item.id}
                     >
-                      <div className="inner-box">
-                        <div className="content">
-                          <figure className="image rounded-0">
-                            <Image
-                              width={90}
-                              height={90}
-                              src={item.imagePath}
-                              alt="candidates"
-                            />
-                          </figure>
-
+                      <div className="inner-box flex-column">
+                        <div className="content ps-0">
                           <ul className="candidate-info">
-                            <li className="ps-0">
-                              <span>Title : </span>
-                              {item.title}
+
+                            <li className="ps-0 w-100">
+                              <Link href={`/courses/${item.courseId}`}>
+                                <span>Course Name :</span>
+                                {item.courseName}
+                              </Link>
                             </li>
 
-                            <li className="ps-0">
-                              <span>Teacher : </span>
-                              {item.teacher}
+                            <li className={`ps-0 w-100 ${isOldDate(item.startTime, item.SessionTimings) ? "text-danger" : ""}`}>
+                              <span>Course Date : </span>
+                              {item.SessionTimings}
                             </li>
 
-                            <li className="ps-0">
-                              <span>Price :</span>
-                              {item.price}
+                            <li className={`ps-0 w-100 ${isOldDate(item.startTime, item.SessionTimings) ? "text-danger" : ""}`}>
+                              <span>Time : </span>
+                              {item.startTime} - {item.endTime}
                             </li>
 
-                            <li className="ps-0">
-                              <span>Start Date :</span>
-                              {item.course_start_date}
-                            </li>
                           </ul>
                         </div>
                         {/* End content */}
 
                         <div className="option-box">
                           <ul className="option-list">
-                            <li>
-                              <button data-text="View Course">
-                                <Link data-text="View Course" href={`/courses/${item.id}`}>
+                            {/* <li>
+                              <button data-text="View Course Time">
+                                <Link data-text="View Course Time" href={`/courses-times/${item.id}`}>
                                   <span className="la la-eye"></span>
                                 </Link>
                               </button>
-                            </li>
-                            <li>
-                              <button data-text="Edit Course">
-                                <Link data-text="Edit Course" href={`/courses/edit/${item.id}`}>
+                            </li> */}
+                            {/* <li>
+                              <button data-text="Edit Course Time">
+                                <Link data-text="Edit Course Time" href={`/courses-times/edit/${item.id}`}>
                                   <span className="la la-pencil"></span>
                                 </Link >
                               </button>
-                            </li>
+                            </li> */}
                             <li>
                               <DeleteModal id={item.id} />
                             </li>
@@ -102,9 +104,9 @@ const WidgetContentBox = () => {
                       </div>
                     </div>
                   )) :
-                  courses && courses.length === 0 ?
+                  coursesTimes && coursesTimes.length === 0 ?
                     <div className="text-center">
-                      <span> No courses Found . Create new course for get started</span>
+                      <span> No course time Found . Create new course for get started</span>
                     </div>
                     : (
                       <div className="spinner-border text-primary mx-auto" role="status">
@@ -118,7 +120,7 @@ const WidgetContentBox = () => {
           </div>
         </Tabs>
       </div>
-      {courses?.length > 0 && <Pagination />}
+      {coursesTimes?.length > 0 && <Pagination />}
     </div>
   );
 };

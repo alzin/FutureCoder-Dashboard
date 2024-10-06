@@ -5,31 +5,34 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { unwrapResult } from '@reduxjs/toolkit';
 
-import { addTestimonial } from '@/states/testimonials/handleRequests';
+import { addUser } from '@/states/users/handleRequests';
 
 const FormInfoBox = () => {
     const dispatch = useDispatch();
     const router = useRouter();
-    const { loading } = useSelector((state) => state.testimonials);
-    const [testimonialData, setTestimonialData] = useState({
-        userId: "",
-        description: "",
-        rating: "",
+    const { loading } = useSelector((state) => state.users);
+    const [userData, setUserData] = useState({
+        firstName: "",
+        lastName: "",
+        age: "",
+        email: "",
+        password: "",
+        timeZone: "Asia/Damascus",
     });
 
     const handleChange = (e) => {
-        setTestimonialData({ ...testimonialData, [e.target.name]: e.target.value });
+        setUserData({ ...userData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const resultAction = await dispatch(addTestimonial({ testimonialData }));
+            const resultAction = await dispatch(addUser({ userData }));
             unwrapResult(resultAction); // This will throw an error if the action was rejected
-            router.push("/testimonials");
+            router.push("/users");
         } catch (error) {
-            console.error('Create Testimonial  failed', error);
+            console.error('Create User  failed', error);
         }
     }
 
@@ -37,39 +40,61 @@ const FormInfoBox = () => {
         <form className="default-form" onSubmit={handleSubmit}>
             <div className="row">
                 <div className="form-group col-lg-6 col-md-12">
-                    <label>User Id</label>
+                    <label>First Name</label>
                     <input
-                        type="number"
-                        min={0}
-                        name="userId"
-                        placeholder="Enter userId of Testimonial"
-                        value={testimonialData.userId}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-
-                <div className="form-group col-lg-12 col-md-12">
-                    <label>description</label>
-                    <textarea
                         type="text"
-                        name="description"
-                        placeholder="Enter Opinion of Testimonials"
-                        value={testimonialData.description}
+                        name="firstName"
+                        placeholder="Enter First Name of User"
+                        value={userData.firstName}
                         onChange={handleChange}
                         required
                     />
                 </div>
 
                 <div className="form-group col-lg-6 col-md-12">
-                    <label>Rating</label>
+                    <label>Last Name</label>
+                    <input
+                        type="text"
+                        name="lastName"
+                        placeholder="Enter Last Name of User"
+                        value={userData.lastName}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-group col-lg-6 col-md-12">
+                    <label>Age</label>
                     <input
                         type="number"
-                        name="rating"
+                        name="age"
                         min={0}
-                        max={5}
-                        placeholder="Enter rating of Future Coder"
-                        value={testimonialData.rating}
+                        placeholder="Enter Age of User"
+                        value={userData.age}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-group col-lg-6 col-md-12">
+                    <label>Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter Last Name of User"
+                        value={userData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-group col-lg-6 col-md-12">
+                    <label>Password</label>
+                    <input
+                        type="text"
+                        name="password"
+                        placeholder="Enter Password of User"
+                        value={userData.password}
                         onChange={handleChange}
                         required
                     />

@@ -28,6 +28,7 @@ const WidgetContentBox = () => {
 
   return (
     <div className="widget-content">
+      <p>{getTimeZone()}</p>
       <div className="tabs-box">
         <Tabs>
           <div className="aplicants-upper-bar">

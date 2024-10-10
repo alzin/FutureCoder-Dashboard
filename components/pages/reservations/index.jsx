@@ -3,7 +3,6 @@ import DashboardHeader from "@/components/header/DashboardHeader";
 import DashboardEmployerSidebar from "@/components/header/DashboardSidebar";
 import BreadCrumb from "@/components/BreadCrumb";
 import MenuToggler from "@/components/MenuToggler";
-import { getTimeZone } from "@/utils/algorithms";
 import WidgetContentBox from "./components/WidgetContentBox";
 
 const index = () => {
@@ -24,7 +23,6 @@ const index = () => {
       <section className="user-dashboard">
         <div className="dashboard-outer">
           <BreadCrumb title="All Reservations!" />
-          <p>{getTimeZone()}</p>
           {/* breadCrumb */}
 
           <MenuToggler />

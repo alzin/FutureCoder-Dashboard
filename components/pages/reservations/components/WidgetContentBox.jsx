@@ -17,7 +17,6 @@ const WidgetContentBox = () => {
 
   useEffect(() => {
     const timezone = getTimeZone()
-    console.log(timezone)
     dispatch(getBookings({ currentPage, timezone }));
   }, [])
 
@@ -29,6 +28,7 @@ const WidgetContentBox = () => {
 
   return (
     <div className="widget-content">
+      <p>{getTimeZone()}</p>
       <div className="tabs-box">
         <Tabs>
           <div className="aplicants-upper-bar">

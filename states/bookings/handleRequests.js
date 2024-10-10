@@ -35,6 +35,7 @@ export const getBookings = createAsyncThunk(
 export const addBooking = createAsyncThunk(
   "bookings/addBooking",
   async ({ bookingData }, { rejectWithValue }) => {
+    console.log(bookingData)
     try {
       const response = await fetch(`${Api}/free_lessons/createSession`, {
         method: "POST",

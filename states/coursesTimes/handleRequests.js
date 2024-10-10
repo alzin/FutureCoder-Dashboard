@@ -4,7 +4,7 @@ import { Api, token } from "../Api";
 const headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
-  Authorization: `Bearer 1|${token}`,
+  Authorization: `Bearer ${token}`,
   // 'Content-Type': 'multipart/form-data'
 };
 
@@ -12,6 +12,7 @@ const headers = {
 export const getCoursesTimes = createAsyncThunk(
   "coursesTimes/getCoursesTimes",
   async ({ currentPage, timezone }, { rejectWithValue }) => {
+    console.log(timezone)
     try {
       const response = await fetch(`${Api}/courses_time/getAlltimes?page=${currentPage}`, {
         method: "POST",

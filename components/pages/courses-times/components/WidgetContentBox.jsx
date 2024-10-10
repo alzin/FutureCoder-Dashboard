@@ -8,10 +8,12 @@ import { useSelector, useDispatch } from "react-redux";
 import DeleteModal from "./DeleteModal";
 import { useEffect } from "react";
 import { getCoursesTimes } from "@/states/coursesTimes/handleRequests";
+import { getTimeZone } from "@/utils/algorithms";
 
 const WidgetContentBox = () => {
 
   const dispatch = useDispatch();
+  const timezone = getTimeZone();
   const { coursesTimes, totalCount, currentPage } = useSelector(state => state.coursesTimes)
 
   const isOldDate = (timeString, dateString) => {
@@ -21,12 +23,6 @@ const WidgetContentBox = () => {
   };
 
   useEffect(() => {
-    const getTimeZone = () => {
-      return Intl.DateTimeFormat().resolvedOptions().timeZone;
-    };
-
-    const timezone = getTimeZone();
-
     dispatch(getCoursesTimes({ currentPage, timezone }));
   }, [])
 
@@ -53,6 +49,7 @@ const WidgetContentBox = () => {
                     <div
                       className="candidate-block-three col-lg-4 col-md-12 col-sm-12"
                       key={item.id}
+                      title={`CourseTimeId : ${item.id}`}
                     >
                       <div className="inner-box flex-column">
                         <div className="content ps-0">

@@ -35,7 +35,7 @@ export const usersSlice = createSlice({
       })
       .addCase(getUsers.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.users = payload.data;
+        state.users = payload.data.filter(user => user.id !== 2);
         state.totalCount = payload.total;
         // toast.success("Succsessfull getUsers");
       })

@@ -1,3 +1,4 @@
+
 export function truncateString(str, maxLength) {
   if (str.length <= maxLength) {
     return str;
@@ -7,5 +8,7 @@ export function truncateString(str, maxLength) {
 
 
 export const getTimeZone = () => {
-  return Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  console.log(timeZone)
+  return timeZone
 };

@@ -17,6 +17,7 @@ const WidgetContentBox = () => {
 
   useEffect(() => {
     const timezone = getTimeZone()
+    console.log(timezone)
     dispatch(getBookings({ currentPage, timezone }));
   }, [])
 
@@ -34,9 +35,9 @@ const WidgetContentBox = () => {
 
             <TabList className="aplicantion-status tab-buttons clearfix w-100">
               <Tab className="tab-btn totals ms-0"> Total(s): {totalCount}</Tab>
-              {/* <Link href={"/reservations/create"} className="theme-btn btn-style-one ms-auto">
+              <Link href={"/reservations/create"} className="theme-btn btn-style-one ms-auto">
                 Create New Reservations
-              </Link> */}
+              </Link>
             </TabList>
           </div>
 

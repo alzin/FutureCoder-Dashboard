@@ -4,7 +4,7 @@ import { Api, token } from "../Api";
 const headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
-  Authorization: `Bearer 1|${token}`,
+  Authorization: `Bearer ${token}`,
   // 'Content-Type': 'multipart/form-data'
 };
 

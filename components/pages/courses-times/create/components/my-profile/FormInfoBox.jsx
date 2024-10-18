@@ -45,6 +45,7 @@ const FormInfoBox = () => {
             const resultAction = await dispatch(addCoursesTimes({ courseTimeData: courseTimeDataClone }));
             unwrapResult(resultAction); // This will throw an error if the action was rejected
             router.push("/courses-times");
+
         } catch (error) {
             console.error('Create Course Time failed', error);
         }

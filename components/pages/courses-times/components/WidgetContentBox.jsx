@@ -73,6 +73,11 @@ const WidgetContentBox = () => {
                               {item.startTime} - {item.endTime}
                             </li>
 
+                            <li className={`ps-0 w-100 ${item.studentsCount === 3 ? "text-danger" : ""}`}>
+                              <span>Number of Student : </span>
+                              {item.studentsCount}
+                            </li>
+
                           </ul>
                         </div>
                         {/* End content */}

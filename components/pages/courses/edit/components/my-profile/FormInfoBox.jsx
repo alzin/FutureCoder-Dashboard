@@ -23,6 +23,7 @@ const FormInfoBox = ({ id }) => {
         min_age: "",
         max_age: "",
         imagePath: "",
+        payment_url: ""
     });
 
     useEffect(() => {
@@ -42,6 +43,7 @@ const FormInfoBox = ({ id }) => {
                 min_age: findCourse.min_age,
                 max_age: findCourse.max_age,
                 imagePath: findCourse.imagePath,
+                payment_url: findCourse.payment_url
             });
         }
     }, [findCourse]);
@@ -187,10 +189,20 @@ const FormInfoBox = ({ id }) => {
                             <input
                                 type="text"
                                 name="imagePath"
-                                placeholder="Enter Image Path of Blog"
+                                placeholder="Enter Image Path of Course"
                                 value={formData.imagePath}
                                 onChange={handleChange}
                                 required
+                            />
+                        </div>
+                        <div className="form-group col-lg-6 col-md-12">
+                            <label>Payment Url</label>
+                            <input
+                                type="text"
+                                name="payment_url"
+                                placeholder="Enter payment URL of Course"
+                                value={formData.payment_url}
+                                onChange={handleChange}
                             />
                         </div>
 

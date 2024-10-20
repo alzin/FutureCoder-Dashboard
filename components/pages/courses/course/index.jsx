@@ -101,6 +101,11 @@ const index = ({ id }) => {
                                                         <span>{findCourse.course_start_date}</span>
                                                     </li>
 
+                                                    <li>
+                                                        <h5>Payment Url : </h5>
+                                                        <span>{findCourse.payment_url}</span>
+                                                    </li>
+
 
 
                                                 </ul>

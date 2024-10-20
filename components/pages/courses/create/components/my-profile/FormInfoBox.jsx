@@ -22,6 +22,7 @@ const FormInfoBox = () => {
         min_age: "",
         max_age: "",
         imagePath: "https://i.postimg.cc/jjfjwTWs/image.png",
+        payment_url: ""
     });
 
     const handleChange = (e) => {
@@ -168,6 +169,17 @@ const FormInfoBox = () => {
                         value={courseData.imagePath}
                         onChange={handleChange}
                         required
+                    />
+                </div>
+
+                <div className="form-group col-lg-6 col-md-12">
+                    <label>Payment Url</label>
+                    <input
+                        type="text"
+                        name="payment_url"
+                        placeholder="Enter payment URL of Course"
+                        value={formData.payment_url}
+                        onChange={handleChange}
                     />
                 </div>
 

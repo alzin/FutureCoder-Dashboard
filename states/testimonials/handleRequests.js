@@ -14,7 +14,7 @@ export const getTestimonials = createAsyncThunk(
   async ({ currentPage }, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${Api}/Testimonial/getAllTestimonialsForAdmin?page=${currentPage}`,
+        `${Api}/Testimonial/getAllTestimonialsForAdmin?page=${currentPage}&language=en`,
         {
           method: "GET",
           headers,

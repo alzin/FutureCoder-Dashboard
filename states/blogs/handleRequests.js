@@ -44,6 +44,7 @@ export const getBlogById = createAsyncThunk(
       const data = await response.json();
 
       if (response.ok) {
+        console.log(data)
         return data;
       } else {
         return rejectWithValue(data.message);

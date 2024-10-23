@@ -67,7 +67,7 @@ const WidgetContentBox = () => {
 
                             <li className="ps-0">
                               <span>Price :</span>
-                              {item.price}
+                              ${item.price}
                             </li>
 
                             <li className="ps-0">

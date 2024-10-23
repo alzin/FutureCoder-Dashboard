@@ -23,11 +23,11 @@ const FormInfoBox = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        console.log(blogData.description)
         try {
             const resultAction = await dispatch(addBlog({ blogData }));
             unwrapResult(resultAction); // This will throw an error if the action was rejected
-            router.push("/blogs");
+            // router.push("/blogs");
         } catch (error) {
             console.error('Create Blog failed', error);
         }
@@ -60,7 +60,7 @@ const FormInfoBox = () => {
                     />
                 </div>
 
-               
+
                 <div className="form-group col-lg-6 col-md-12">
                     <label>Image path</label>
                     <input

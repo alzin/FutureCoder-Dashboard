@@ -49,6 +49,7 @@ const index = ({ id }) => {
                                 <div className="content-column col-lg-8 col-md-12 col-sm-12">
                                     <div className="job-detail">
 
+
                                         <div
                                             className={`resume-outer theme-blue`}
                                         >
@@ -56,7 +57,27 @@ const index = ({ id }) => {
                                                 <h4>Description</h4>
                                             </div>
 
-                                            <p>{findCourse.description}</p>
+                                            {findCourse.description.split("\n").map((item, index) => (
+                                                <p key={index}>
+                                                    {item}
+                                                </p>
+                                            ))}
+
+                                        </div>
+
+
+                                        <div
+                                            className={`resume-outer theme-blue`}
+                                        >
+                                            <div className="upper-title">
+                                                <h4>Course Outline</h4>
+                                            </div>
+
+                                            {findCourse.course_outline.split("\n").map((item, index) => (
+                                                <p key={index}>
+                                                    {item}
+                                                </p>
+                                            ))}
 
                                         </div>
 
@@ -85,10 +106,6 @@ const index = ({ id }) => {
                                                     <li>
                                                         <h5>Age : </h5>
                                                         <span>{findCourse.min_age} - {findCourse.max_age}</span>
-                                                    </li>
-                                                    <li>
-                                                        <h5>Course Outline : </h5>
-                                                        <span>{findCourse.course_outline}</span>
                                                     </li>
 
                                                     <li>

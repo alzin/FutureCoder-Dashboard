@@ -22,7 +22,7 @@ const index = ({ id }) => {
                 notFound()
             }
         }
-    }, [id,findBlog])
+    }, [id, findBlog])
 
     return (
 
@@ -65,9 +65,12 @@ const index = ({ id }) => {
                                     </div>
                                     <div className="job-detail">
                                         <h4>Blog Description :</h4>
-                                        <p>
-                                            {findBlog.description}
-                                        </p>
+                                        {findBlog.description.split("\n").map((item, index) => (
+                                            <p key={index}>
+                                                {item}
+                                            </p>
+                                        ))}
+
                                     </div>
                                     {/* End job-detail */}
 

@@ -68,6 +68,18 @@ const FormInfoBox = () => {
                     />
                 </div>
 
+                <div className="form-group col-lg-12 col-md-12">
+                    <label>Course Outline</label>
+                    <textarea
+                        type="text"
+                        name="course_outline"
+                        placeholder="Enter Course Outline of Course"
+                        value={courseData.course_outline}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
                 <div className="form-group col-lg-6 col-md-12">
                     <label>Course Teacher</label>
                     <input
@@ -88,18 +100,6 @@ const FormInfoBox = () => {
                         min={0}
                         placeholder="Enter Price of Course"
                         value={courseData.price}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-
-                <div className="form-group col-lg-6 col-md-12">
-                    <label>Course Outline</label>
-                    <input
-                        type="text"
-                        name="course_outline"
-                        placeholder="Enter Course Outline of Course"
-                        value={courseData.course_outline}
                         onChange={handleChange}
                         required
                     />

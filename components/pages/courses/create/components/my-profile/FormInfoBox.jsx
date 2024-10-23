@@ -178,7 +178,7 @@ const FormInfoBox = () => {
                         type="text"
                         name="payment_url"
                         placeholder="Enter payment URL of Course"
-                        value={formData.payment_url}
+                        value={courseData.payment_url}
                         onChange={handleChange}
                     />
                 </div>
